@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+# A dmenu script to copy paste the value of the selected option.
+# By the end, the selected value will remain in the clipboard.
+
+# $@ - Passed to dmenu.
+# e.g. dm_copypaste -i -sb '#ED4C67'
+
+set -euo pipefail
+
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+# Source helper script.
+# shellcheck disable=SC1090
+source "$DIR/lib/dm_helper.sh"
+
+# Source the file containing the values to copy.
+source_constants "$HOME/git/scripts/constants.env" || source_constants "$DIR/constants.env"
+
+# Copy the given string to both mouse and system clipboard.
+# $1 the string to copy.
+copy() {
+    echo "$1" | xclip
+    echo "$1" | xclip -sel clip
+}
+
+# Map option names to their values to copy.
+declare -A values
+values["hotmail"]="$HOTMAIL"
+values["gmail"]="$GMAIL"
+values["email-work"]="$EMAIL_WORK"
+values["email-uni"]="$EMAIL_UNI"
+values["mobile"]="$MOBILE"
+values["llt"]="$LLT"
+
+# List of options in appearance order.
+declare -a options=(
+    "email-work"
+    "mobile"
+    "email-uni"
+    "hotmail"
+    "gmail"
+    "llt"
+)
+
+choice=$(printf '%s\n' "${options[@]}" | run_dmenu "CopyPaste menu:" "${@}")
+output "Choice is '$choice'."
+
+if [[ -z $choice ]]; then
+    output "No choice given."
+    exit 1
+fi
+
+if [[ -z ${values[$choice]} ]]; then
+    output "Unhandled choice '$choice'."
+    exit 1
+fi
+
+value=${values[$choice]}
+
+run_command "copy '$value'"
+
+# Paste.
+xdotool key Control_L+v
+
+# Alternatively, we can type the text.
+#xdotool type "$value"

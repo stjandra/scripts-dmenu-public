@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# Shutdown menu.
+
+# $@ - Passed to dmenu.
+# e.g. dm_shutdown -i -sb '#ED4C67'
+
+set -euo pipefail
+
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+# Source helper script.
+# shellcheck disable=SC1090
+source "$DIR/lib/dm_helper.sh"
+
+# Map option names to their commands.
+declare -A commands
+commands["Suspend"]="systemctl suspend"
+commands["Shutdown"]="systemctl poweroff"
+commands["Lock screen"]="light-locker-command --lock"
+commands["Reboot"]="systemctl reboot"
+
+# List of options in appearance order.
+declare -a options=(
+    "Suspend"
+    "Shutdown"
+    "Lock screen"
+    "Reboot"
+)
+
+choice=$(printf "%s\n" "${options[@]}" | run_dmenu "Shutdown menu:" "${@}")
+output "Choice is '$choice'."
+
+if [[ -z $choice ]]; then
+    output "No choice given."
+    exit 1
+fi
+
+if [[ -z ${commands[$choice]} ]]; then
+    output "Unhandled choice '$choice'."
+    exit 1
+fi
+
+if confirm_yes "$choice" "$@"; then
+    run_command "${commands[$choice]}"
+fi
