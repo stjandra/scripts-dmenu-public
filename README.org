@@ -1,0 +1,21 @@
+#+TITLE: scripts-dmenu-public
+
+* Scripts
+
+** dm\under{}copypaste
+
+To copy paste common strings that I regularly used, e.g. my email address.
+
+** dm\under{}shutdown
+
+Shutdown menu with options to:
+- Suspend
+- Shutdown
+- Lock screen (assumes light-locker is used)
+- Reboot
+
+* Other
+
+Other useful dmenu scripts:
+- dmenu\under{}run: To find and start programs in =$PATH=
+- [[https://github.com/enkore/j4-dmenu-desktop][j4-dmenu-desktop]]: To find and start .desktop files.
