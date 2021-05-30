@@ -1,5 +1,23 @@
 #+TITLE: scripts-dmenu-public
 
+* Overview
+
+A collection of my dmenu scripts.
+[[https://tools.suckless.org/dmenu/][dmenu]] is a dynamic menu that creates a menu item from each line from stdin.
+
+* Dependencies
+
+- [[https://tools.suckless.org/dmenu/][dmenu]]
+
+** Script Specific Dependencies
+
+dm\under{}copypaste
+- [[https://github.com/astrand/xclip][xclip]]
+- [[https://github.com/jordansissel/xdotool][xdotool]]
+
+dm\under{}shutdown
+- [[https://github.com/the-cavalry/light-locker][light-locker]]
+
 * Scripts
 
 ** dm\under{}copypaste
