@@ -9,20 +9,15 @@ A collection of my dmenu scripts.
 
 - [[https://tools.suckless.org/dmenu/][dmenu]]
 
-** Script Specific Dependencies
-
-dm\under{}copypaste
-- [[https://github.com/astrand/xclip][xclip]]
-- [[https://github.com/jordansissel/xdotool][xdotool]]
-
-dm\under{}shutdown
-- [[https://github.com/the-cavalry/light-locker][light-locker]]
-
 * Scripts
 
 ** dm\under{}copypaste
 
 To copy paste common strings that I regularly used, e.g. my email address.
+
+*** Dependencies
+- [[https://github.com/astrand/xclip][xclip]]
+- [[https://github.com/jordansissel/xdotool][xdotool]]
 
 ** dm\under{}shutdown
 
@@ -31,6 +26,9 @@ Shutdown menu with options to:
 - Shutdown
 - Lock screen (assumes light-locker is used)
 - Reboot
+
+*** Dependencies
+- [[https://github.com/the-cavalry/light-locker][light-locker]]
 
 * Other
 
