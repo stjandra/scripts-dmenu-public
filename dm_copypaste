@@ -15,7 +15,9 @@ DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 source "$DIR/lib/dm_helper.sh"
 
 # Source the file containing the values to copy.
-source_constants "$HOME/git/scripts/constants.env" || source_constants "$DIR/constants.env"
+source_if_exists "$HOME/git/scripts/constants.env" \
+    || source_if_exists "$DIR/constants.env" \
+    || (output "No constants file found, exiting." && exit 1)
 
 # Copy the given string to both mouse and system clipboard.
 # $1 the string to copy.
