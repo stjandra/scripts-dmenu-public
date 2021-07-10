@@ -30,6 +30,13 @@ Shutdown menu with options to:
 *** Dependencies
 - [[https://github.com/the-cavalry/light-locker][light-locker]]
 
+** dm\under{}tmux\under{}session
+
+Attach to an existing or create a new tmux session.
+
+*** Dependencies
+- [[https://github.com/tmux/tmux][tmux]]
+
 * Other
 
 Other useful dmenu scripts:

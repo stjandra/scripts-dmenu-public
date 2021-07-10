@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# tmux session menu.
+
+# $@ - Passed to dmenu.
+# e.g. dm_tmux_session -i -sb '#ED4C67'
+
+set -euo pipefail
+
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+# Source helper script.
+# shellcheck disable=SC1090
+source "$DIR/lib/dm_helper.sh"
+
+readarray -t sessions <<<"$(tmux list-sessions | cut -d: -f1)"
+
+choice=$(printf "%s\n" "${sessions[@]}" | run_dmenu "tmux sessions:" "${@}")
+output "Choice is '$choice'."
+
+if [[ -z $choice ]]; then
+    output "No choice given."
+    exit 1
+fi
+
+if [[ " ${sessions[*]} " =~ " ${choice} " ]]; then
+
+    output "Session exists '$choice'"
+    run_command "kitty sh -c 'tmux attach -t $choice'"
+
+else
+    output "New session '$choice'."
+    run_command "kitty sh -c 'tmux new-session -s $choice'"
+fi
