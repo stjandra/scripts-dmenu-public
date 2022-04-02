@@ -17,8 +17,16 @@ source "$DIR/lib/dm_helper.sh"
 declare -A commands
 commands["Suspend"]="systemctl suspend"
 commands["Shutdown"]="systemctl poweroff"
-commands["Lock screen"]="light-locker-command --lock"
+commands["Lock screen"]="lock_screen"
 commands["Reboot"]="systemctl reboot"
+
+lock_screen() {
+    if command -v light-locker-command &> /dev/null; then
+        light-locker-command --lock
+    elif command -v betterlockscreen &> /dev/null; then
+        betterlockscreen --lock dimblur
+    fi
+}
 
 # List of options in appearance order.
 declare -a options=(
