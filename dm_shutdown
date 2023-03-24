@@ -36,7 +36,7 @@ declare -a options=(
     "Reboot"
 )
 
-choice=$(printf "%s\n" "${options[@]}" | run_dmenu "Shutdown menu:" "${@}")
+choice=$(printf "%s\n" "${options[@]}" | run_dmenu -p "Shutdown menu:" "${@}")
 output "Choice is '$choice'."
 
 if [[ -z $choice ]]; then

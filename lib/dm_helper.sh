@@ -8,11 +8,10 @@ output() {
 
 # Run dmenu with the given args.
 # dmenu reads the items from stdin.
-# $1 the prompt.
-# ${@:2} dmenu args.
+# $@ dmenu args.
 # Returns the selected item.
 run_dmenu() {
-    dmenu -p "$1" "${@:2}"
+    dmenu "$@"
 }
 
 # Run dmenu to confirm choice.
@@ -22,7 +21,7 @@ run_dmenu() {
 confirm_yes() {
 
     local result
-    result=$(printf "No\nYes" | run_dmenu "$1?" "${@:2}")
+    result=$(printf "No\nYes" | run_dmenu -p "$1?" "${@:2}")
     output "Confirm is '$result'."
 
     if [ "$result" == "Yes" ]; then

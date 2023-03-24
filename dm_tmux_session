@@ -15,7 +15,7 @@ source "$DIR/lib/dm_helper.sh"
 
 readarray -t sessions <<<"$(tmux list-sessions | cut -d: -f1)"
 
-choice=$(printf "%s\n" "${sessions[@]}" | run_dmenu "tmux sessions:" "${@}")
+choice=$(printf "%s\n" "${sessions[@]}" | run_dmenu -p "tmux sessions:" "${@}")
 output "Choice is '$choice'."
 
 if [[ -z $choice ]]; then

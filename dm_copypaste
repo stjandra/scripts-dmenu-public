@@ -45,7 +45,7 @@ declare -a options=(
     "llt"
 )
 
-choice=$(printf '%s\n' "${options[@]}" | run_dmenu "CopyPaste menu:" "${@}")
+choice=$(printf '%s\n' "${options[@]}" | run_dmenu -p "CopyPaste menu:" "${@}")
 output "Choice is '$choice'."
 
 if [[ -z $choice ]]; then
