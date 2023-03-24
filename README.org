@@ -19,15 +19,20 @@ To copy paste common strings that I regularly used, e.g. my email address.
 - [[https://github.com/astrand/xclip][xclip]]
 - [[https://github.com/jordansissel/xdotool][xdotool]]
 
+** dm\under{}kill
+
+Kill a selected process.
+
 ** dm\under{}shutdown
 
 Shutdown menu with options to:
 - Suspend
 - Shutdown
-- Lock screen (assumes light-locker is used)
+- Lock screen (assumes betterlockscreen or light-locker is used)
 - Reboot
 
-*** Dependencies
+*** Supported screen lockers
+- [[https://github.com/betterlockscreen/betterlockscreen][betterlockscreen]]
 - [[https://github.com/the-cavalry/light-locker][light-locker]]
 
 ** dm\under{}tmux\under{}session

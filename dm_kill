@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# A dmenu script to kill the selected process.
+
+# $@ - Passed to dmenu.
+# e.g. dm_kill -i -sb '#ED4C67'
+
+set -euo pipefail
+
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+# Source helper script.
+# shellcheck disable=SC1090
+source "$DIR/lib/dm_helper.sh"
+
+choice=$(ps -u "$USER" -o pid,%mem,%cpu,comm | sort -bnrk3 | sed -n '1!p' | run_dmenu -i -l 20 "$@")
+output "Choice is $choice"
+
+if [[ -z $choice ]]; then
+    output "No choice given."
+    exit 1
+fi
+
+pid=$(echo "$choice" | awk '{print $1}')
+kill "$pid"
