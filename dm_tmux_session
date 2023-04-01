@@ -13,6 +13,9 @@ DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 # shellcheck disable=SC1090
 source "$DIR/lib/dm_helper.sh"
 
+# Set default terminal
+TERMINAL=${TERMINAL:-kitty}
+
 readarray -t sessions <<<"$(tmux list-sessions | cut -d: -f1)"
 
 choice=$(printf "%s\n" "${sessions[@]}" | run_dmenu -p "tmux sessions:" "${@}")
@@ -26,9 +29,9 @@ fi
 if [[ " ${sessions[*]} " =~ " ${choice} " ]]; then
 
     output "Session exists '$choice'"
-    run_command "kitty sh -c 'tmux attach -t $choice'"
+    run_command "$TERMINAL -e tmux attach -t $choice"
 
 else
     output "New session '$choice'."
-    run_command "kitty sh -c 'tmux new-session -s $choice'"
+    run_command "$TERMINAL -e tmux new-session -s $choice"
 fi
