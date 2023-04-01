@@ -13,7 +13,7 @@ DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 # shellcheck disable=SC1090
 source "$DIR/lib/dm_helper.sh"
 
-choice=$(ps -u "$USER" -o pid,%mem,%cpu,comm | sort -bnrk3 | sed -n '1!p' | run_dmenu -i -l 20 "$@")
+choice=$(ps -u "$USER" -o pid,%mem,%cpu,comm | sed -n '1!p' | sort -bnrk3 | run_dmenu -p Kill -i -l 20 "$@")
 output "Choice is $choice"
 
 if [[ -z $choice ]]; then
